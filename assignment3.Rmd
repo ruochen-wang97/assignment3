@@ -1,0 +1,30 @@
+---
+title: "I'll think of a better title later"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+by Ruochen Wang
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = T)
+
+```
+
+```{r set-up, include = F}
+library(tidyverse)
+library(extrafont)
+
+data <-
+  read.csv("~/Downloads/DataScienceAssignments/dataviz-project/data/ACS_17_5YR_S2201_SNAP.csv")
+
+```
+
+```{r make-plots, echo = F}
+setwd("~/Downloads/DataScienceAssignments/dataviz-project")
+
+ggplot(data = data,
+       mapping = aes(x = GEO.display.label,
+                     y = HC01_EST_VC01))
+```
