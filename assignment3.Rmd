@@ -46,7 +46,7 @@ ggplot(data = data_treemap,
                       breaks = seq(5, 25, by = 5),
                       name = "% of Households Experienced\nPoverty in the Past 12 Months") +
   labs(title = "Number of Households Receiving SNAP Benefits, 2017",
-       subtitle = "xxx",
+       subtitle = "States in the South",
        caption = "* Source: 2017 American Community Survey 5-Year Estimates, US Census Bureau") +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm"),
         plot.title = element_text(size = 16, family = "Arial", face = "bold", vjust = 2),
