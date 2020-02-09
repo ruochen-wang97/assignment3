@@ -12,19 +12,47 @@ knitr::opts_chunk$set(echo = T)
 
 ```
 
-```{r set-up, include = F}
+```{r load-packages, include = F}
 library(tidyverse)
+library(treemapify)
 library(extrafont)
-
-data <-
-  read.csv("~/Downloads/DataScienceAssignments/dataviz-project/data/ACS_17_5YR_S2201_SNAP.csv")
 
 ```
 
-```{r make-plots, echo = F}
+```{r make-treemap, echo = F}
 setwd("~/Downloads/DataScienceAssignments/dataviz-project")
 
-ggplot(data = data,
-       mapping = aes(x = GEO.display.label,
-                     y = HC01_EST_VC01))
+data_treemap <-
+  read_excel("data/treemap-snap_and_poverty_rate.xlsx")
+
+ggplot(data = data_treemap,
+       mapping = aes(area = est_num_hh_snap,
+                     fill = est_pct_hh_poor,
+                     label = state,
+                     subgroup = census_region)) +
+  geom_treemap() +
+  geom_treemap_subgroup_border(color = "white") +
+  geom_treemap_text(color = "white",
+                    place = "center",
+                    grow = F,
+                    reflow = T) +
+  geom_treemap_subgroup_text(color = "#FAFAFA",
+                             place = "center",
+                             grow = T,
+                             alpha = .5,
+                             min.size = 0) +
+  scale_fill_gradient(low = "#c6dbef", high = "#08306b",
+                      limits = c(5, 25),
+                      breaks = seq(5, 25, by = 5),
+                      name = "% of Households Experienced\nPoverty in the Past 12 Months") +
+  labs(title = "Number of Households Receiving SNAP Benefits, 2017",
+       subtitle = "xxx",
+       caption = "* Source: 2017 American Community Survey 5-Year Estimates, US Census Bureau") +
+  theme(plot.margin = unit(c(1, 1, 1, 1), "cm"),
+        plot.title = element_text(size = 16, family = "Arial", face = "bold", vjust = 2),
+        plot.subtitle = element_text(size = 12, family = "Arial", vjust = 2),
+        plot.caption = element_text(size = 9, family = "Arial", vjust = -2),
+        legend.title = element_text(size = 9, family = "Arial", vjust = 4),
+        legend.text = element_text(family = "Arial"))
+
 ```
