@@ -1,5 +1,5 @@
 ---
-title: "I'll think of a better title later"
+title: "The State of Poverty in the United States"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -23,6 +23,48 @@ setwd("~/Downloads/DataScienceAssignments/dataviz-project")
 ```
 
 ```{r make-time-series, echo = T, message = F}
+
+data_time <-
+  read_excel("data/time-pov_rate_by_race.xlsx")
+
+race_eth1 <- c("All Races",
+               "Non-Hispanic White",
+               "Black",
+               "Hispanic",
+               "Asian")
+data_time$race_eth <- factor(data_time$race_eth, race_eth1)
+
+ggplot() +
+  geom_line(data = data_time,
+            mapping = aes(x = year,
+                          y = pct,
+                          color = race_eth)) +
+  scale_x_continuous(breaks =
+                       c(2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018)) +
+  scale_color_brewer(palette = "Set1") +
+  theme_minimal() +
+  labs(title = "Poverty Trends in the United States, 2009-2018",
+       subtitle = "Black and Hispanic populations made the most progress yet still have above-average poverty rates.",
+       caption = "Source: US Census Bureau",
+       y = "Poverty Rate (%)",
+       color = "Race/Ethnicity") +
+  theme(plot.margin = unit(c(1,0,1,.5),"cm"),
+        plot.title = element_text(size = 14, family = "Arial", face = "bold", vjust = 2),
+        plot.subtitle = element_text(size = 9, family = "Arial", vjust = 2),
+        plot.caption = element_text(size = 7, family = "Arial", face = "italic", vjust = -4, hjust = 1),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(family = "Arial", vjust = 5),
+        axis.text.x = element_text(family = "Arial"),
+        axis.text.y = element_text(family = "Arial"),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(linetype = "dotted", color = "gray"),
+        panel.grid.minor.y = element_blank(),
+        axis.line.x = element_line(linetype = "solid", size = .5),
+        legend.title = element_text(face = "bold"))
 
 ```
 
@@ -133,4 +175,3 @@ ggplot(data = data_reg,
         legend.title = element_text(face = "bold"))
 
 ```
-
