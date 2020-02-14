@@ -44,7 +44,7 @@ ggplot() +
   scale_color_brewer(palette = "Set1") +
   theme_minimal() +
   labs(title = "Poverty Trends in the United States, 2009-2018",
-       subtitle = "Black and Hispanic populations made the most progress yet still have above-average poverty rates.",
+       subtitle = "Black and Hispanic populations made the most progress, yet still have above-average poverty rates.",
        caption = "Source: US Census Bureau",
        y = "Poverty Rate (%)",
        color = "Race/Ethnicity") +
@@ -68,6 +68,7 @@ ggplot() +
 
 ```
 
+This graph shows the overall trends in poverty rates in the United States over the 2009-2018 period. As can be seen, poverty rates for Blacks and Hispanics were way above the national average and were much higher than that for Asians and Non-Hispanic Whites during the entire period. However, these two groups have made significant progress in recent years and the poverty rates for these two groups have decreased substantially since 2012.
 
 ```{r make-treemap, echo = T, message = F}
 
@@ -93,7 +94,7 @@ ggplot(data = data_treemap,
   scale_fill_gradient(low = "#c6dbef", high = "#08306b",
                       limits = c(5, 25),
                       breaks = seq(5, 25, by = 5),
-                      name = "% of Households Experienced\nPoverty in the Past 12 Months") +
+                      name = "Percent of Households Experienced\nPoverty in the Past 12 Months") +
   labs(title = "Number of Households Receiving SNAP Benefits, 2017",
        subtitle = "Southern states, where poverty is the most concentrated among census regions, held the most families receiving food stamps\nin 2017.",
        caption = "Source: 2017 American Community Survey 5-Year Estimates, US Census Bureau") +
@@ -106,6 +107,7 @@ ggplot(data = data_treemap,
 
 ```
 
+A strong indicator for poverty status is program participation. This treemap shows that Southern states not only had, overall, higher rates of poverty as compared to states in other census regions, but also the greatest number of households that received food stamps in 2017. Not surprisingly, states with large population sizes (such as California and Texas) also held the most families receiving food stamps. Worth noting is that several states, including Louisiana and Kentucky, still had considerable numbers of families receiving SNAP benefits despite their relatively smaller population sizes.
 
 ```{r make-bar, echo = T, message = F}
 
@@ -143,6 +145,7 @@ ggplot() +
 
 ```
 
+Poverty is strongly correlated with educational attainment. This bar chart shows that, as would be expected, one's odds of experiencing poverty decreases as his/her education level increases. The greatest education effect on poverty is seen among high school dropouts and high school graduates, with the former group almost twice as likely to experience poverty than the latter group.
 
 ```{r make-reg, echo = T, message = F, warning = F}
 
@@ -157,7 +160,7 @@ ggplot(data = data_reg,
   scale_y_continuous(limits = c(7, 23), breaks = (c(7, 9, 11, 13, 15, 17, 19, 21, 23))) +
   scale_color_brewer(palette = "Set1") +
   labs(title = "The Gender Gap in Educational Attainment and Poverty",
-       subtitle = "Women are more likely to experience poverty than men with similar education levels. The poverty reduction\neffect of education is also greater for men than for women.",
+       subtitle = "Women are more likely to experience poverty than men with similar education levels. The education effect on\npoverty reduction is also greater for men than for women.",
        caption = "Source: 2017 American Community Survey 5-Year Estimates, US Census Bureau",
        x = "Percent of Population 18 to 24 Years Enrolled in College or Graduate School, 2017",
        y = "Percent of Population Living Below Poverty Level\nin the Past 12 Months, 2017") +
@@ -175,3 +178,5 @@ ggplot(data = data_reg,
         legend.title = element_text(face = "bold"))
 
 ```
+
+Yet the effect of education on poverty reduction may vary for different demographic groups. For example, the above graph shows the results from the regression of the percentage of state population having experienced poverty on the percentage of state population ages 18 to 24 enrolled in collge or graduate school, and suggests that not only are women more likely to experience poverty than men with similar education levels, but also the return of education on poverty reduction is smaller for women than for men - as suggested by the flatter slope of the regression line for women. This means that effort on reducing poverty among women must not focus solely on increasing women's schooling, but also supporting labor market policies such as employment assistance and equal pay that help women translate their educational attainment into economic wellness.
