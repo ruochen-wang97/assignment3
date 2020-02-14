@@ -47,12 +47,12 @@ ggplot(data = data_treemap,
                       breaks = seq(5, 25, by = 5),
                       name = "% of Households Experienced\nPoverty in the Past 12 Months") +
   labs(title = "Number of Households Receiving SNAP Benefits, 2017",
-       subtitle = "States in the South",
+       subtitle = "Southern states, where poverty is the most concentrated among census regions, held the\nmost families receiving food stamps in 2017.",
        caption = "* Source: 2017 American Community Survey 5-Year Estimates, US Census Bureau") +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm"),
         plot.title = element_text(size = 16, family = "Arial", face = "bold", vjust = 2),
-        plot.subtitle = element_text(size = 12, family = "Arial", vjust = 2),
-        plot.caption = element_text(size = 9, family = "Arial", vjust = -2),
+        plot.subtitle = element_text(size = 11, family = "Arial", vjust = 2),
+        plot.caption = element_text(size = 7, family = "Arial", vjust = -2, hjust = 0),
         legend.title = element_text(size = 9, family = "Arial", vjust = 4),
         legend.text = element_text(family = "Arial"))
 
