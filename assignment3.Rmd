@@ -22,45 +22,12 @@ setwd("~/Downloads/DataScienceAssignments/dataviz-project")
 
 ```
 
-
-```{r make-bar, echo = T}
-
-data_bar <-
-  read_excel("data/bar-pov_rate.xls")
-
-ggplot() +
-  geom_col(data = data_bar,
-           mapping = aes(x = reorder(ed_level, -pct),
-                         y = pct),
-           fill = "#fdbe85",
-           color = "#fdbe85",
-           width = .7) +
-  geom_hline(yintercept = 11.4697, size = .7, linetype = "dashed", color = "#8c2d04") +
-  scale_y_continuous(breaks = c(0, 5, 10, 15, 20, 25)) +
-  labs(title = "In the United States, high school dropouts are almost twice as likely to\nexperience poverty as their peers with a high school diploma",
-       subtitle = "Percent of US Population Ages 25 and Old living below poverty level in the Past 12 Months, 2017",
-       caption = "* Dashed line denotes national average.\nSource: 2017 American Community Survey 5-Year Estimates, US Census Bureau",
-       y = "%") +
-  theme_minimal() +
-  theme(plot.margin = unit(c(1,1,1,1),"cm"),
-        plot.title = element_text(size = 12, family = "Arial", face = "bold", vjust = 3),
-        plot.subtitle = element_text(size = 9, family = "Arial", vjust = 3),
-        plot.caption = element_text(size = 7, family = "Arial", vjust = -2, hjust = 0),
-        axis.title.x = element_blank(),
-        axis.title.y = element_text(angle = 0, family = "Arial", vjust = .5),
-        axis.text.x = element_text(angle = 45, vjust = 1.1, hjust = 1, family = "Arial"),
-        axis.text.y = element_text(family = "Arial"),
-        axis.ticks.x = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank())
+```{r make-time-series, echo = T, message = F}
 
 ```
 
 
-```{r make-treemap, echo = T}
+```{r make-treemap, echo = T, message = F}
 
 data_treemap <-
   read_excel("data/treemap-snap_and_poverty_rate.xlsx")
@@ -86,13 +53,84 @@ ggplot(data = data_treemap,
                       breaks = seq(5, 25, by = 5),
                       name = "% of Households Experienced\nPoverty in the Past 12 Months") +
   labs(title = "Number of Households Receiving SNAP Benefits, 2017",
-       subtitle = "Southern states, where poverty is the most concentrated among census regions, held the\nmost families receiving food stamps in 2017.",
+       subtitle = "Southern states, where poverty is the most concentrated among census regions, held the most families receiving food stamps\nin 2017.",
        caption = "Source: 2017 American Community Survey 5-Year Estimates, US Census Bureau") +
-  theme(plot.margin = unit(c(1,1,1,1),"cm"),
+  theme(plot.margin = unit(c(1,0,1,0),"cm"),
         plot.title = element_text(size = 14, family = "Arial", face = "bold", vjust = 2),
         plot.subtitle = element_text(size = 9, family = "Arial", vjust = 2),
-        plot.caption = element_text(size = 7, family = "Arial", vjust = -2, hjust = 0),
+        plot.caption = element_text(size = 7, family = "Arial", face = "italic", vjust = -2, hjust = 0),
         legend.title = element_text(size = 7, family = "Arial", vjust = 4),
         legend.text = element_text(size = 7, family = "Arial"))
 
 ```
+
+
+```{r make-bar, echo = T, message = F}
+
+data_bar <-
+  read_excel("data/bar-pov_rate_by_ed.xls")
+
+ggplot() +
+  geom_col(data = data_bar,
+           mapping = aes(x = reorder(ed_level, -pct),
+                         y = pct),
+           fill = "#fdbe85",
+           color = "#fdbe85",
+           width = .7) +
+  geom_hline(yintercept = 11.4697, size = .7, linetype = "dashed", color = "#8c2d04") +
+  scale_y_continuous(breaks = c(0, 5, 10, 15, 20, 25)) +
+  labs(title = "In the United States, high school dropouts are almost twice as likely to experience\npoverty as their peers with a high school diploma",
+       subtitle = "Percent of US Population 25 Years and Older Living Below Poverty Level in the Past 12 Months, 2017",
+       caption = "* Dashed line denotes national average.\nSource: 2017 American Community Survey 5-Year Estimates, US Census Bureau",
+       y = "%") +
+  theme_minimal() +
+  theme(plot.margin = unit(c(1,0,1,0),"cm"),
+        plot.title = element_text(size = 12, family = "Arial", face = "bold", vjust = 3),
+        plot.subtitle = element_text(size = 9, family = "Arial", vjust = 3),
+        plot.caption = element_text(size = 7, family = "Arial", face = "italic", vjust = -2, hjust = 0),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(angle = 0, family = "Arial", vjust = .5),
+        axis.text.x = element_text(angle = 45, vjust = 1.1, hjust = 1, family = "Arial"),
+        axis.text.y = element_text(family = "Arial"),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+
+```
+
+
+```{r make-reg, echo = T, message = F, warning = F}
+
+data_reg <-
+  read_excel("data/reg-pov_rate_by_sex.xlsx")
+
+ggplot(data = data_reg,
+       mapping = aes(x = pct_collgrad, y = pct_pov, color = Gender)) +
+  geom_smooth(method = lm, se = F) +
+  geom_text(aes(label = abbr), size = 2.5, family = "Arial", show.legend = F) +
+  scale_x_continuous(limits = c(20, 60), breaks = (c(20, 30, 40, 50, 60))) +
+  scale_y_continuous(limits = c(7, 23), breaks = (c(7, 9, 11, 13, 15, 17, 19, 21, 23))) +
+  scale_color_brewer(palette = "Set1") +
+  labs(title = "The Gender Gap in Educational Attainment and Poverty",
+       subtitle = "Women are more likely to experience poverty than men with similar education levels. The poverty reduction\neffect of education is also greater for men than for women.",
+       caption = "Source: 2017 American Community Survey 5-Year Estimates, US Census Bureau",
+       x = "Percent of Population 18 to 24 Years Enrolled in College or Graduate School, 2017",
+       y = "Percent of Population Living Below Poverty Level\nin the Past 12 Months, 2017") +
+  theme_bw() +
+  theme(plot.margin = unit(c(1,0,1,.5),"cm"),
+        plot.title = element_text(size = 14, family = "Arial", face = "bold", vjust = 2),
+        plot.subtitle = element_text(size = 9, family = "Arial", vjust = 2),
+        plot.caption = element_text(size = 7, family = "Arial", face = "italic", vjust = -4, hjust = 0),
+        axis.title.x = element_text(size = 7, family = "Arial",vjust = -1),
+        axis.title.y = element_text(size = 7, family = "Arial",vjust = 3),
+        axis.text.x = element_text(family = "Arial"),
+        axis.text.y = element_text(family = "Arial"),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.title = element_text(face = "bold"))
+
+```
+
